@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="100"
+             xmlns:vm="clr-namespace:AIAssistant.ViewModels"
+             x:Class="AIAssistant.Views.ChatMessage"
+             x:DataType="vm:ChatMessageViewModel">
+    <Border BorderThickness="1" Margin="2">
+        <DockPanel>
+            <Panel DockPanel.Dock="Left" VerticalAlignment="Top">
+                <PathIcon Data="{DynamicResource PersonWithQuestionMarkIcon}"
+                          Margin="5"
+                          Width="22"
+                          Height="18"
+                          Foreground="{DynamicResource AvatarBrush}"
+                          IsVisible="{Binding IsUserInput}"/>
+                <PathIcon Data="{DynamicResource BotIcon}"
+                          Margin="5"
+                          Width="22"
+                          Height="18"
+                          Foreground="{DynamicResource AvatarBrush}"
+                          IsVisible="{Binding !IsUserInput}"/>
+            </Panel>
+
+            <SelectableTextBlock Text="{Binding Content}"
+                     Background="{DynamicResource MessageBackgroundBrush}"
+                     TextWrapping="Wrap"/>
+        </DockPanel>
+    </Border>
+</UserControl>

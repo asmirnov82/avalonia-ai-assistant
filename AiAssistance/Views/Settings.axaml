@@ -1,0 +1,40 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="500"
+             xmlns:vm="clr-namespace:AIAssistant.ViewModels"
+             x:Class="AIAssistant.Views.Settings"
+             x:DataType="vm:SettingsViewModel">
+    <StackPanel Orientation="Vertical">
+        <Label Content="Model Path"/>
+        <DockPanel>
+            <Button DockPanel.Dock="Right" Content="Browse" Command="{Binding BrowseModelCommand}"/>
+            <TextBox Margin="5"
+                     Text="{Binding ModelPath}"
+                     FontSize="11"/>
+        </DockPanel>
+        <StackPanel Margin="0,5,0,0">
+            <DockPanel>
+                <Label>GPU Layers</Label>
+                <TextBlock 
+                    Text="{Binding ElementName=SliderGpuCount, Path=Value, StringFormat={}{0:N2}}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    FontSize="11"/>
+            </DockPanel>
+            <Slider Margin="0,-10,0,0"
+                    Name="SliderGpuCount"
+                    Value="{Binding GpuLayerCount}"
+                    Minimum="0"
+                    Maximum="{Binding TotalLayerCount}"
+                    TickFrequency="1"
+                    IsSnapToTickEnabled="true"/>
+            <Label>Context Size</Label>
+            <TextBox Margin="5"
+                     IsReadOnly="True"
+                     Text="{Binding ContextSize}"
+                     FontSize="11"/>
+        </StackPanel>
+     </StackPanel>
+</UserControl>

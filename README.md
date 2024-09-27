@@ -1,2 +1,2 @@
 # avalonia-ai-assistant
-Simple avalonia ai chat assistant to be run localy
+Sample AI chat assistant based on Avalonia UI framework and LLamaSharp.

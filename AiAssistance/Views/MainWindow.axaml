@@ -1,0 +1,125 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="500"
+        xmlns:vm="clr-namespace:AIAssistant.ViewModels"
+        xmlns:views="clr-namespace:AIAssistant.Views"
+        Width="480"
+        MinWidth="420"
+        Height="740"
+        MinHeight="500"
+        WindowState="Normal"
+        WindowStartupLocation="CenterScreen"
+        Title="Code Assistance"
+        Icon="/Assets/Images/AppIcon.png"
+        x:Class="AIAssistant.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel">
+    <Window.DataTemplates>
+        <DataTemplate DataType="vm:ChatSessionsViewModel">
+            <views:ChatSessions/>
+        </DataTemplate>
+        <DataTemplate DataType="vm:OptionsViewModel">
+            <views:Options/>
+        </DataTemplate>
+        <DataTemplate DataType="vm:SettingsViewModel">
+            <views:Settings/>
+        </DataTemplate>
+        <DataTemplate DataType="vm:LogsViewModel">
+            <views:Logs/>
+        </DataTemplate>
+    </Window.DataTemplates>
+  <Grid Margin="12"
+         RowDefinitions="*,80"
+         ColumnDefinitions="*,Auto"
+         ShowGridLines="False">
+
+    <ContentControl Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
+                    Content="{Binding ActiveView}"/>
+   
+    <StackPanel Grid.Column="0" Grid.Row="1"
+                Margin="0,-5,0,0"
+                Orientation="Horizontal">
+        <Button Name="ChatsButton"
+                Command="{Binding ShowChatsCommand}"
+                ToolTip.Tip="Chats"
+                BorderBrush="{DynamicResource ButtonBorderBrush}"
+                BorderThickness="2"
+                Background="#00FFFFFF"
+                CornerRadius="4"
+                IsEnabled="{Binding IsChatSessionsButtonEnabled}"
+                Margin="4">
+            <PathIcon Data="{DynamicResource ChatIcon}"
+                    Width="24"
+                    Height="24"
+                    Opacity="0.8"
+                    Foreground="{DynamicResource ButtonForegroundIconBrush}"/>
+        </Button>
+        <Button Name="SettingsButton"
+                Command="{Binding ShowSettingsCommand}"
+                ToolTip.Tip="Settings"
+                BorderBrush="{DynamicResource ButtonBorderBrush}"
+                BorderThickness="2"
+                Background="#00FFFFFF"
+                CornerRadius="4"
+                IsEnabled="{Binding IsSettingsButtonEnabled}"
+                Margin="4">
+            <PathIcon Data="{DynamicResource SettingsIcon}"
+                    Width="22"
+                    Height="22"
+                    Opacity="0.8"
+                    Foreground="{DynamicResource ButtonForegroundIconBrush}"/>
+        </Button>
+        <Button Name="OptionsButton"
+                Command="{Binding ShowOptionsCommand}"
+                ToolTip.Tip="Options"
+                BorderBrush="{DynamicResource ButtonBorderBrush}"
+                BorderThickness="2"
+                Background="#00FFFFFF"
+                IsEnabled="{Binding IsOptionsButtonEnabled}"
+                CornerRadius="4"
+                Margin="4">
+            <PathIcon Data="{DynamicResource OptionsIcon}"
+                    Width="22"
+                    Height="22"
+                    Opacity="0.8"
+                    Foreground="{DynamicResource ButtonForegroundIconBrush}"/>
+        </Button>
+        <Button Name="LogsButton"
+            Command="{Binding ShowLogsCommand}"
+            ToolTip.Tip="Status"
+            BorderBrush="{DynamicResource ButtonBorderBrush}"
+            BorderThickness="2"
+            Background="#00FFFFFF"
+            IsEnabled="{Binding IsLogsButtonEnabled}"
+            CornerRadius="4"
+            Margin="4">
+            <PathIcon Data="{DynamicResource GlassesIcon}"
+                    Width="22"
+                    Height="22"
+                    Opacity="0.8"
+                    Foreground="{DynamicResource ButtonForegroundIconBrush}"/>
+        </Button>
+        <Button Name="ChangeThemeButton"
+            Command="{Binding ChangeThemeCommand}"
+            ToolTip.Tip="Change color theme"
+            BorderBrush="{DynamicResource ButtonBorderBrush}"
+            BorderThickness="2"
+            Background="#00FFFFFF"
+            CornerRadius="4"
+            Margin="16, 4">
+            <PathIcon Data="{DynamicResource ChangeThemeIcon}"
+                    Width="22"
+                    Height="22"
+                    Opacity="0.8"
+                    Foreground="{DynamicResource ButtonForegroundIconBrush}"/>
+        </Button>
+    </StackPanel>  
+    <Image Grid.Column="1"
+           Grid.Row="1"
+           Name="ClippyImage"
+           Height="155"
+           Margin="0,-50,0,5"
+           Source="/Assets/Images/Wizard.png"/>
+  </Grid>
+</Window>

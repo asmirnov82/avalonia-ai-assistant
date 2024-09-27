@@ -1,0 +1,88 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="500"
+             xmlns:views="clr-namespace:AIAssistant.Views"
+             xmlns:vm="clr-namespace:AIAssistant.ViewModels"
+             x:Class="AIAssistant.Views.ChatSessions"
+             x:DataType="vm:ChatSessionsViewModel">
+    <UserControl.DataTemplates>
+        <DataTemplate DataType="vm:ChatSessionViewModel">
+            <views:ChatSession/>
+        </DataTemplate>
+    </UserControl.DataTemplates>
+    <Grid>
+        <Grid RowDefinitions="*,30"
+              ColumnDefinitions="*,Auto"
+              ShowGridLines="False">
+            <TabControl Grid.Column="0" Grid.Row="0"
+                        ItemsSource="{Binding ChatSessions}"
+                        SelectedIndex="{Binding SelectedTabIndex}">
+                <TabControl.Styles>
+                    <Style Selector="TabItem" x:DataType="vm:ChatSessionViewModel">
+                        <Setter Property="FontSize" Value="14"/>
+                        <Setter Property="MinHeight" Value="30"/>
+                    </Style>
+                </TabControl.Styles>
+
+                <TabControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            
+                            <TextBlock Text="{Binding Header}" />
+                            <Button Margin="0"
+                                    BorderThickness="0"
+                                    Background="Transparent"
+                                    Command="{Binding CloseCommand}"
+                                    IsEnabled="{Binding !IsGeneratingResponse}"
+                                    Foreground="{DynamicResource BackgroundBrush}">
+                                <Button.Styles>
+                                    <Style Selector="Button[IsEnabled=True]:pointerover">
+                                        <Setter Property="Foreground" Value="{DynamicResource TabCloseIconBrush}"/>
+                                    </Style>
+                                    <Style Selector="Button:disabled">
+                                        <Setter Property="Opacity" Value="0"/>
+                                    </Style>
+                                </Button.Styles>
+                                <PathIcon Margin="-8,-4, -4, -4"
+                                          Data="{DynamicResource TabCloseIcon}"
+                                          Width="14"
+                                          Height="14"                                          
+                                          Foreground="{Binding $parent.Foreground}"/>
+
+                                
+                            </Button>
+                        </StackPanel>
+                    </DataTemplate>
+                </TabControl.ItemTemplate>
+            </TabControl>
+            <StackPanel Grid.Column="0" Grid.Row="1"
+                        Orientation="Horizontal">
+                <Button Name="NewChatButton"
+                    Command="{Binding NewChatCommand}"
+                    ToolTip.Tip="New Chat"
+                    BorderBrush="#FFAAAAAA"
+                    BorderThickness="0"
+                    Background="#00FFFFFF"
+                    CornerRadius="4"
+                    IsEnabled="{Binding IsNewChatButtonEnabled}"
+                    Margin="4">
+                    <PathIcon Data="{DynamicResource AddChatBotIcon}"
+                            Width="26"
+                            Height="22"
+                            Opacity="0.8"
+                            Foreground="{DynamicResource SmallButtonForegroundIconBrush}"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Border IsVisible="{Binding IsModelLoading}" Background="#40000000">
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock HorizontalAlignment="Center">Loading LLM model</TextBlock>
+                <ProgressBar Width="100" Height="20"
+                             Value="{Binding ModelLoadingProgress}">
+                </ProgressBar>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>
