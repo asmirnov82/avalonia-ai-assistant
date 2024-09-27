@@ -78,7 +78,7 @@
         </Grid>
         <Border IsVisible="{Binding IsModelLoading}" Background="#40000000">
             <StackPanel VerticalAlignment="Center">
-                <TextBlock HorizontalAlignment="Center">Loading LLM model</TextBlock>
+                <TextBlock HorizontalAlignment="Center">Loading LLM weights</TextBlock>
                 <ProgressBar Width="100" Height="20"
                              Value="{Binding ModelLoadingProgress}">
                 </ProgressBar>

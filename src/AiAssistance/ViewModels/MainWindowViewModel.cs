@@ -121,7 +121,7 @@ namespace AIAssistant.ViewModels
             ShowLogsCommand = new RelayCommand(() => ActiveView = _logsViewModel);
             ChangeThemeCommand = new RelayCommand(ToggleApplicationScheme);
 
-            
+            UpdateViewModelState();
         }
 
         private void OnApplicationModelPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)

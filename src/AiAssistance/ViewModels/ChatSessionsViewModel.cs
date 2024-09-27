@@ -78,7 +78,7 @@ namespace AIAssistant.ViewModels
             {
                 IsModelLoading = true;
 
-                await _applicationModel.LoadLanguageModelAsync(new Progress<float>(x => ModelLoadingProgress = (int)(x * 100)));
+                await _applicationModel.LoadModelWeightsAsync(new Progress<float>(x => ModelLoadingProgress = (int)(x * 100)));
 
                 IsModelLoading = false;
             }

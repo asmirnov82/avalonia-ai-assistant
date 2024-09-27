@@ -7,22 +7,15 @@ using System.Threading.Tasks;
 namespace AIAssistant.Models
 {
     /// <summary>
-    /// A class for reading model settings from app config file.
+    /// A class for reading LLM settings from app config file.
     /// </summary>
-    public sealed class LlmModelConfig
+    public sealed class LlmConfig
     {
-        //Model params
+        //Llm params
         public string? ModelName { get; set; }
         public string? ModelPath { get; set; }
         public int GpuLayerCount { get; set; }
         public int TotalLayerCount { get; set; }
         public int ContextSize { get; set; }
-
-        //Inference params
-        public float Temperature { get; set; }
-
-        public string? AntiPrompts { get; set; }
-        public string? SkippedOutput { get; set; }
-        public string? SystemInstructions { get; set; }
     }
 }

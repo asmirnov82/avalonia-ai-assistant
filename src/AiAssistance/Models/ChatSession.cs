@@ -8,6 +8,8 @@ using Avalonia.Styling;
 using LLama;
 using LLama.Abstractions;
 using LLama.Common;
+using LLama.Transformers;
+using static System.Collections.Specialized.BitVector32;
 
 namespace AIAssistant.Models
 {
@@ -29,10 +31,17 @@ namespace AIAssistant.Models
             var executor = new InteractiveExecutor(_context);
             var chatHistory = new ChatHistory();
 
+            
             if (!String.IsNullOrEmpty(systemInstructions))
                 chatHistory.AddMessage(AuthorRole.System, systemInstructions);
 
             _session = new LLama.ChatSession(executor, chatHistory);
+
+
+            // Add default template transformer, that uses llama.cpp internal chat template support for most popular models
+            // If model template is not supported by llama.cpp - custom transformer is required to format the prompt correctly
+            // see: https://github.com/ggerganov/llama.cpp/wiki/Templates-supported-by-llama_chat_apply_template
+            _session.WithHistoryTransform(new PromptTemplateTransformer(model, withAssistant: true));
 
             if (transform != null)
             {
