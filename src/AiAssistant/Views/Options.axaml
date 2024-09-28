@@ -1,0 +1,62 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="500"
+             xmlns:vm="clr-namespace:AIAssistant.ViewModels"
+             x:Class="AIAssistant.Views.Options"
+             x:DataType="vm:OptionsViewModel">
+    <StackPanel Orientation="Vertical">
+        <Label>System Instructions</Label>
+        <TextBox Margin="5"
+                 TextWrapping="Wrap"
+                 Text="{Binding SystemInstructions}"/>
+        <DockPanel>
+            <Label>Temperature</Label>
+            <TextBlock Margin="0,0,5,0"
+                 Text="{Binding ElementName=SliderTemperature, Path=Value, StringFormat={}{0:N2}}"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Right"
+                 FontSize="11"/>
+        </DockPanel>
+        <Slider Margin="5,-10,5,0"
+                Name="SliderTemperature"
+                Value="{Binding Temperature}"
+                Minimum="0.1"
+                Maximum="5.0"
+                TickFrequency="0.05"
+                IsSnapToTickEnabled="true"/>
+        <DockPanel>
+            <Label>Presence Penalty</Label>
+            <TextBlock Margin="0,0,5,0"
+                Text="{Binding ElementName=SliderPresencePenalty, Path=Value, StringFormat={}{0:N2}}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                FontSize="11"/>
+        </DockPanel>
+        <Slider Margin="5,-10,5,0"
+                Name="SliderPresencePenalty"
+                Value="{Binding PresencePenalty}"
+                Minimum="-2"
+                Maximum="2"
+                TickFrequency="0.05"
+                IsSnapToTickEnabled="true"/>
+        <DockPanel>
+            <Label>Frequency Penalty</Label>
+            <TextBlock Margin="0,0,5,0"
+                Text="{Binding ElementName=SliderFrequencyPenalty, Path=Value, StringFormat={}{0:N2}}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                FontSize="11"/>
+        </DockPanel>
+        <Slider Margin="5,-10,5,0"
+                Name="SliderFrequencyPenalty"
+                Value="{Binding FrequencyPenalty}"
+                Minimum="-2"
+                Maximum="2"
+                TickFrequency="0.05"
+                IsSnapToTickEnabled="true"/>
+
+
+    </StackPanel>
+</UserControl>

@@ -16,6 +16,15 @@ namespace AIAssistant.ViewModels
         private readonly ApplicationModel _applicationModel;
 
         #region Public properties
+        public string? SystemInstructions
+        {
+            get => _applicationModel.SystemInstructions;
+            set
+            {
+                _applicationModel.SystemInstructions = value;
+            }
+        }
+
         public float Temperature
         {
             get => _applicationModel.Temperature;
@@ -25,12 +34,21 @@ namespace AIAssistant.ViewModels
             }
         }
 
-        public string? SystemInstructions
+        public float PresencePenalty
         {
-            get => _applicationModel.SystemInstructions;
+            get => _applicationModel.PresencePenalty;
             set
             {
-                _applicationModel.SystemInstructions = value;
+                _applicationModel.PresencePenalty = value;
+            }
+        }
+
+        public float FrequencyPenalty
+        {
+            get => _applicationModel.FrequencyPenalty;
+            set
+            {
+                _applicationModel.FrequencyPenalty = value;
             }
         }
         #endregion
@@ -45,6 +63,10 @@ namespace AIAssistant.ViewModels
         {
             if (e.PropertyName == nameof(ApplicationModel.Temperature))
                 NotifyPropertyChanged(nameof(Temperature));
+            else if (e.PropertyName == nameof(ApplicationModel.PresencePenalty))
+                NotifyPropertyChanged(nameof(PresencePenalty));
+            else if (e.PropertyName == nameof(ApplicationModel.FrequencyPenalty))
+                NotifyPropertyChanged(nameof(FrequencyPenalty));
             else if (e.PropertyName == nameof(ApplicationModel.SystemInstructions))
                 NotifyPropertyChanged(nameof(SystemInstructions));
         }

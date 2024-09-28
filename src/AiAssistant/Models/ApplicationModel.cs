@@ -13,6 +13,8 @@ using LLama.Native;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using AiAssistance.Models;
+using AIAssistant.Views;
+using LLama.Sampling;
 
 namespace AIAssistant.Models
 {
@@ -88,6 +90,28 @@ namespace AIAssistant.Models
             }
         }
 
+        private float _presencePenalty;
+        public float PresencePenalty
+        {
+            get => _presencePenalty;
+            set
+            {
+                _presencePenalty = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private float _frequencyPenalty;
+        public float FrequencyPenalty
+        {
+            get => _frequencyPenalty;
+            set
+            {
+                _frequencyPenalty = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         private string? _systemInstructions;
         public string? SystemInstructions
         {
@@ -135,8 +159,10 @@ namespace AIAssistant.Models
             //Read and define inference params
             var inferenceConfig = _config.GetSection("InferenceParams").Get<InferenceConfig>();
 
-            _temperature = inferenceConfig!.Temperature;
-            _systemInstructions = inferenceConfig.SystemInstructions;
+            _systemInstructions = inferenceConfig!.SystemInstructions;
+            _temperature = inferenceConfig.Temperature;
+            _presencePenalty = inferenceConfig.PresencePenalty;
+            _frequencyPenalty = inferenceConfig.FrequencyPenalty;
         }
 
         public async Task<bool> LoadModelWeightsAsync(IProgress<float>? progressReporter = null)
@@ -186,11 +212,16 @@ namespace AIAssistant.Models
                 ContextSize = (uint)_contextSize
             };
 
+            var samplingPipeline = new DefaultSamplingPipeline();
+            samplingPipeline.Temperature = _temperature;
+            samplingPipeline.AlphaPresence = _presencePenalty;
+            samplingPipeline.AlphaFrequency = _frequencyPenalty;
+
             //Define inference params
             var inferenceParams = new InferenceParams()
             {
                 AntiPrompts = [_llm.Tokens.EndOfTurnToken!],
-                Temperature = _temperature
+                SamplingPipeline = samplingPipeline
             };
 
             return new ChatSession(_llm,

@@ -13,6 +13,8 @@ namespace AiAssistance.Models
     {
         //Inference params
         public float Temperature { get; set; }
+        public float PresencePenalty { get; set;}
+        public float FrequencyPenalty { get; set;}
         public string? SystemInstructions { get; set; }
     }
 }

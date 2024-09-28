@@ -11,7 +11,7 @@
         MinHeight="500"
         WindowState="Normal"
         WindowStartupLocation="CenterScreen"
-        Title="Code Assistance"
+        Title="AI Assistant"
         Icon="/Assets/Images/AppIcon.png"
         x:Class="AIAssistant.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel">
