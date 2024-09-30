@@ -3,12 +3,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="500"
-             xmlns:views="clr-namespace:AIAssistant.Views"
-             xmlns:vm="clr-namespace:AIAssistant.ViewModels"
+             xmlns:views="clr-namespace:AiAssistant.Views"
+             xmlns:vm="clr-namespace:AiAssistant.ViewModels"
              xmlns:AvaloniaEdit="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
              xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
-             xmlns:utils="clr-namespace:AIAssistant.Utils"
-             x:Class="AIAssistant.Views.ChatSession"
+             xmlns:utils="clr-namespace:AiAssistant.Utils"
+             x:Class="AiAssistant.Views.ChatSession"
              x:DataType="vm:ChatSessionViewModel">
     <UserControl.DataTemplates>
         <DataTemplate DataType="vm:ChatMessageViewModel">
@@ -27,6 +27,9 @@
                 BorderThickness="1"
                 Margin="2">
             <ScrollViewer>
+                <i:Interaction.Behaviors>
+                    <utils:AutoScrollBehavior AutoScroll="True"/>
+                </i:Interaction.Behaviors>
                 <ItemsControl ItemsSource="{Binding Messages}"/>
             </ScrollViewer>
         </Border>

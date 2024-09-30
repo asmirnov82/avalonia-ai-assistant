@@ -3,8 +3,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="500"
-             xmlns:vm="clr-namespace:AIAssistant.ViewModels"
-             x:Class="AIAssistant.Views.Logs"
+             xmlns:vm="clr-namespace:AiAssistant.ViewModels"
+             x:Class="AiAssistant.Views.Logs"
              x:DataType="vm:LogsViewModel">
     <ScrollViewer>
         <SelectableTextBlock Text="{Binding Text}"

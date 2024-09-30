@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Platform.Storage;
-using AIAssistant.Models;
-using AIAssistant.Utils;
+using AiAssistant.Models;
+using AiAssistant.Utils;
 
-namespace AIAssistant.ViewModels
+namespace AiAssistant.ViewModels
 {
     /// <summary>
     /// ViewModel for Settings.

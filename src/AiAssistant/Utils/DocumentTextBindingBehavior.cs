@@ -7,7 +7,7 @@ using Avalonia;
 using Avalonia.Xaml.Interactivity;
 using AvaloniaEdit;
 
-namespace AIAssistant.Utils
+namespace AiAssistant.Utils
 {
     public class DocumentTextBindingBehavior : Behavior<TextEditor>, IObserver<string>
     {
@@ -37,9 +37,9 @@ namespace AIAssistant.Utils
         {
             base.OnAttached();
 
-            if (AssociatedObject is TextEditor textEditor)
+            if (AssociatedObject != null)
             {
-                _textEditor = textEditor;
+                _textEditor = AssociatedObject;
                 _textEditor.TextChanged += TextChanged;
                 this.GetObservable(TextProperty).Subscribe(this);
             }
@@ -65,7 +65,6 @@ namespace AIAssistant.Utils
 
         private void TextPropertyChanged(string text)
         {
-
             if (_textEditor != null && _textEditor.Document != null && text != null)
             {
                 if (text == "")

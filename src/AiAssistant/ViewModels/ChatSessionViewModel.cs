@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using AIAssistant.Utils;
-using ChatSession = AIAssistant.Models.ChatSession;
+using AiAssistant.Utils;
+using ChatSession = AiAssistant.Models.ChatSession;
 
-namespace AIAssistant.ViewModels
+namespace AiAssistant.ViewModels
 {
     /// <summary>
     /// ViewModel for a user Chat Session.

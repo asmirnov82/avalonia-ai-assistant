@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace AIAssistant.Views
+namespace AiAssistant.Views
 {
     public partial class MainWindow : Window
     {

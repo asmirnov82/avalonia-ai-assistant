@@ -3,8 +3,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="100"
-             xmlns:vm="clr-namespace:AIAssistant.ViewModels"
-             x:Class="AIAssistant.Views.ChatMessage"
+             xmlns:vm="clr-namespace:AiAssistant.ViewModels"
+             x:Class="AiAssistant.Views.ChatMessage"
              x:DataType="vm:ChatMessageViewModel">
     <Border BorderThickness="1" Margin="2">
         <DockPanel>

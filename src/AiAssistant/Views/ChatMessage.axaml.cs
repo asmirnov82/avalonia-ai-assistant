@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace AIAssistant.Views;
+namespace AiAssistant.Views;
 
 public partial class ChatMessage : UserControl
 {

@@ -4,14 +4,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Avalonia.Styling;
 using LLama;
 using LLama.Abstractions;
 using LLama.Common;
 using LLama.Transformers;
-using static System.Collections.Specialized.BitVector32;
 
-namespace AIAssistant.Models
+namespace AiAssistant.Models
 {
     /// <summary>
     /// Wrapper over LLama.ChatSession class, implementing chat session.

@@ -3,9 +3,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="500"
-             xmlns:views="clr-namespace:AIAssistant.Views"
-             xmlns:vm="clr-namespace:AIAssistant.ViewModels"
-             x:Class="AIAssistant.Views.ChatSessions"
+             xmlns:views="clr-namespace:AiAssistant.Views"
+             xmlns:vm="clr-namespace:AiAssistant.ViewModels"
+             x:Class="AiAssistant.Views.ChatSessions"
              x:DataType="vm:ChatSessionsViewModel">
     <UserControl.DataTemplates>
         <DataTemplate DataType="vm:ChatSessionViewModel">

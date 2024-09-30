@@ -4,10 +4,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AIAssistant.Utils;
+using AiAssistant.Utils;
 using Microsoft.Extensions.Logging;
 
-namespace AIAssistant.Models
+namespace AiAssistant.Models
 {
     /// <summary>
     /// Storage for application log.

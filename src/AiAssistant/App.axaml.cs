@@ -1,11 +1,11 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using AIAssistant.Models;
-using AIAssistant.ViewModels;
-using AIAssistant.Views;
+using AiAssistant.Models;
+using AiAssistant.ViewModels;
+using AiAssistant.Views;
 
-namespace AIAssistant
+namespace AiAssistant
 {
     public partial class App : Application
     {

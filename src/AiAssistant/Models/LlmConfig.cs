@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AIAssistant.Models
+namespace AiAssistant.Models
 {
     /// <summary>
     /// A class for reading LLM settings from app config file.

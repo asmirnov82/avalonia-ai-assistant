@@ -6,17 +6,17 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Controls.ApplicationLifetimes;
-using AIAssistant.Utils;
+using AiAssistant.Utils;
 using LLama;
 using LLama.Common;
 using LLama.Native;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using AiAssistance.Models;
-using AIAssistant.Views;
+using AiAssistant.Views;
 using LLama.Sampling;
 
-namespace AIAssistant.Models
+namespace AiAssistant.Models
 {
     /// <summary>
     /// Application model that contains main app business logic.
@@ -220,7 +220,7 @@ namespace AIAssistant.Models
             //Define inference params
             var inferenceParams = new InferenceParams()
             {
-                AntiPrompts = [_llm.Tokens.EndOfTurnToken!],
+                AntiPrompts = [_llm.Tokens.EndOfTurnToken ?? "User:"],
                 SamplingPipeline = samplingPipeline
             };
 
@@ -228,7 +228,7 @@ namespace AIAssistant.Models
                 contextParams,
                 inferenceParams,
                 _systemInstructions,
-                new LLamaTransforms.KeywordTextOutputStreamTransform([_llm.Tokens.EndOfTurnToken!, "�"], redundancyLength: 5));
+                new LLamaTransforms.KeywordTextOutputStreamTransform([_llm.Tokens.EndOfTurnToken ?? "User:", "�"], redundancyLength: 5));
         }
 
         private static LogLevel ConvertLLamaLogLevel(LLamaLogLevel level)

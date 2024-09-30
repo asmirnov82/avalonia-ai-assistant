@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using System;
 
-namespace AIAssistant
+namespace AiAssistant
 {
     internal class Program
     {

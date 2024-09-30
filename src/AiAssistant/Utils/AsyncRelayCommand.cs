@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace AIAssistant.Utils
+namespace AiAssistant.Utils
 {
     public sealed class AsyncRelayCommand : ICommand
     {

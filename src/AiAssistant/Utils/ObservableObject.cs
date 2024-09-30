@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AIAssistant.Utils
+namespace AiAssistant.Utils
 {
     public abstract class ObservableObject : INotifyPropertyChanged
     {

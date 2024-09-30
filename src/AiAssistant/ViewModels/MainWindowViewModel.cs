@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Styling;
-using AIAssistant.Models;
-using AIAssistant.Utils;
+using AiAssistant.Models;
+using AiAssistant.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace AIAssistant.ViewModels
+namespace AiAssistant.ViewModels
 {
     /// <summary>
     /// ViewModel for a main application window.

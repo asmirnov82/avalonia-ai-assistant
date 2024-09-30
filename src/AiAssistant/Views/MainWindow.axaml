@@ -3,8 +3,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="500"
-        xmlns:vm="clr-namespace:AIAssistant.ViewModels"
-        xmlns:views="clr-namespace:AIAssistant.Views"
+        xmlns:vm="clr-namespace:AiAssistant.ViewModels"
+        xmlns:views="clr-namespace:AiAssistant.Views"
         Width="480"
         MinWidth="420"
         Height="740"
@@ -13,7 +13,7 @@
         WindowStartupLocation="CenterScreen"
         Title="AI Assistant"
         Icon="/Assets/Images/AppIcon.png"
-        x:Class="AIAssistant.Views.MainWindow"
+        x:Class="AiAssistant.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel">
     <Window.DataTemplates>
         <DataTemplate DataType="vm:ChatSessionsViewModel">
