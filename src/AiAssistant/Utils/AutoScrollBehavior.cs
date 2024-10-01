@@ -9,6 +9,9 @@ using Avalonia.Xaml.Interactivity;
 
 namespace AiAssistant.Utils
 {
+    /// <summary>
+    /// Behavior that is used for AutoScrolling.
+    /// </summary>
     public class AutoScrollBehavior : Behavior<ScrollViewer>
     {
         private ScrollViewer? _scrollViewer;

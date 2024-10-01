@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using AiAssistant.LlamaSharp;
 using AiAssistant.Utils;
-using ChatSession = AiAssistant.Models.ChatSession;
 
 namespace AiAssistant.ViewModels
 {

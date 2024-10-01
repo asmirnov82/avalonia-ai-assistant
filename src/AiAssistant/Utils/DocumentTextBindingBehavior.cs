@@ -9,6 +9,9 @@ using AvaloniaEdit;
 
 namespace AiAssistant.Utils
 {
+    /// <summary>
+    /// Behavior used for using AvaloniaEdit::TextEditor in MVVM.
+    /// </summary>
     public class DocumentTextBindingBehavior : Behavior<TextEditor>, IObserver<string>
     {
         private TextEditor? _textEditor;

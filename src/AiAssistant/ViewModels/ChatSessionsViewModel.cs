@@ -78,7 +78,7 @@ namespace AiAssistant.ViewModels
             {
                 IsModelLoading = true;
 
-                await _applicationModel.LoadModelWeightsAsync(new Progress<float>(x => ModelLoadingProgress = (int)(x * 100)));
+                await _applicationModel.LoadModel(new Progress<float>(x => ModelLoadingProgress = (int)(x * 100)));
 
                 IsModelLoading = false;
             }
@@ -102,7 +102,7 @@ namespace AiAssistant.ViewModels
 
             if (_chatSessions.Count == 0)
             {
-                _applicationModel.UnloadLanguageModel();
+                _applicationModel.UnloadModel();
                 ModelLoadingProgress = 0;
             }
         }

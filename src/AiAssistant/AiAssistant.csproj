@@ -6,13 +6,7 @@
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-    <Configurations>Debug;Release;Release_Cuda;Debug_Cuda</Configurations>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Cuda|AnyCPU'">
-    <Optimize>True</Optimize>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'Debug_Cuda'">
-    <DefineConstants>DEBUG</DefineConstants>
+    <Configurations>Debug;Release</Configurations>
   </PropertyGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
@@ -29,18 +23,21 @@
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.3" />
     <PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.3" />
     <PackageReference Include="Avalonia.Xaml.Interactions" Version="11.1.0.4" />
-    
-    <PackageReference Include="LLamaSharp" Version="0.16.0" />
-    
-    <PackageReference Condition="'$(Configuration)' == 'Debug' OR '$(Configuration)' == 'Release'" Include="LLamaSharp.Backend.Cpu" Version="0.16.0" />
-    <PackageReference Condition="'$(Configuration)' == 'Debug_Cuda' OR '$(Configuration)' == 'Release_Cuda'" Include="LLamaSharp.Backend.Cuda12" Version="0.16.0" />
-    
+       
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.1.3" />
-    <PackageReference Condition="'$(Configuration)' == 'Debug_Cuda'" Include="Avalonia.Diagnostics" Version="11.1.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\AiAssistant.LlamaSharp\AiAssistant.LlamaSharp.csproj">
+      <Private></Private>
+      <ExcludeAssets></ExcludeAssets>
+      <PrivateAssets></PrivateAssets>
+    </ProjectReference>
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Configurations>Debug;Release;Release_Cuda;Debug_Cuda</Configurations>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Cuda|AnyCPU'">
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LLamaSharp" Version="0.16.0">
+      <PrivateAssets>compile</PrivateAssets>
+    </PackageReference>      
+    
+    <PackageReference Condition="'$(Configuration)' == 'Debug' OR '$(Configuration)' == 'Release'" Include="LLamaSharp.Backend.Cpu" Version="0.16.0" />
+    <PackageReference Condition="'$(Configuration)' == 'Debug_Cuda' OR '$(Configuration)' == 'Release_Cuda'" Include="LLamaSharp.Backend.Cuda12" Version="0.16.0">
+      <PrivateAssets>compile</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>

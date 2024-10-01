@@ -9,10 +9,10 @@ using LLama.Abstractions;
 using LLama.Common;
 using LLama.Transformers;
 
-namespace AiAssistant.Models
+namespace AiAssistant.LlamaSharp
 {
     /// <summary>
-    /// Wrapper over LLama.ChatSession class, implementing chat session.
+    /// A class that implements chat session abstraction over LLama.CharSession object.
     /// </summary>
     public sealed class ChatSession : IDisposable
     {

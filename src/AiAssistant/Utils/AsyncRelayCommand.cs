@@ -9,6 +9,10 @@ using System.Windows.Input;
 
 namespace AiAssistant.Utils
 {
+    /// <summary>
+    /// A command whose sole purpose is to relay its functionality to other
+    /// objects by asynchronously invoking functions.
+    /// </summary>
     public sealed class AsyncRelayCommand : ICommand
     {
         private readonly Func<Task> _execute;

@@ -6,15 +6,11 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Controls.ApplicationLifetimes;
-using AiAssistant.Utils;
-using LLama;
-using LLama.Common;
-using LLama.Native;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using AiAssistant.Utils;
 using AiAssistance.Models;
-using AiAssistant.Views;
-using LLama.Sampling;
+using AiAssistant.LlamaSharp;
 
 namespace AiAssistant.Models
 {
@@ -27,7 +23,7 @@ namespace AiAssistant.Models
         private readonly ApplicationStatusLog _statusLog = new ApplicationStatusLog();
         private readonly IConfiguration _config;
         
-        private LLamaWeights? _llm;
+        private readonly LlmModel _llm;
 
         public IApplicationLifetime? ApplicationLifetime => _applicationLifetime;
         public ApplicationStatusLog StatusLog => _statusLog;
@@ -131,12 +127,7 @@ namespace AiAssistant.Models
             //Configure llama.cpp native lib                      
             try
             {
-                NativeLibraryConfig
-                    .All
-                    .WithLogCallback((level, message) =>
-                    {
-                        _statusLog.Log(ConvertLLamaLogLevel(level), message);
-                    });
+                LlmModel.InitNativeLibs(_statusLog.Log);
             }
             catch (Exception ex)
             {
@@ -163,26 +154,21 @@ namespace AiAssistant.Models
             _temperature = inferenceConfig.Temperature;
             _presencePenalty = inferenceConfig.PresencePenalty;
             _frequencyPenalty = inferenceConfig.FrequencyPenalty;
+
+            _llm = new LlmModel();
         }
 
-        public async Task<bool> LoadModelWeightsAsync(IProgress<float>? progressReporter = null)
+        public async Task<bool> LoadModel(IProgress<float>? progressReporter = null)
         {
-            if (_llm != null)
+            if (_isModelLoaded)
             {
                 _statusLog.Log(LogLevel.Error, "Model is already loaded");
                 return false;
             }
 
             try
-            {
-                var modelParams = new ModelParams(_modelPath!)
-                {
-                    Seed = 1337,
-                    GpuLayerCount = _gpuLayerCount
-                };
-
-                //Load model weights
-                _llm = await LLamaWeights.LoadFromFileAsync(modelParams, progressReporter: progressReporter);
+            {                
+                await _llm.LoadModel(_modelPath!, _gpuLayerCount, progressReporter: progressReporter);
                 IsModelLoaded = true;
             }
             catch (Exception ex)
@@ -193,11 +179,10 @@ namespace AiAssistant.Models
             return true;
         }
 
-        public void UnloadLanguageModel()
+        public void UnloadModel()
         {
             //unload model
-            _llm?.Dispose();
-            _llm = null;
+            _llm.Unload();
             IsModelLoaded = false;
         }
 
@@ -206,47 +191,14 @@ namespace AiAssistant.Models
             if (_llm == null)
                 return null;
 
-            //Define context  and inference params
-            var contextParams = new ModelParams(_modelPath!)
+            return _llm.StartChatSession(new SessionOptions()
             {
-                ContextSize = (uint)_contextSize
-            };
-
-            var samplingPipeline = new DefaultSamplingPipeline();
-            samplingPipeline.Temperature = _temperature;
-            samplingPipeline.AlphaPresence = _presencePenalty;
-            samplingPipeline.AlphaFrequency = _frequencyPenalty;
-
-            //Define inference params
-            var inferenceParams = new InferenceParams()
-            {
-                AntiPrompts = [_llm.Tokens.EndOfTurnToken ?? "User:"],
-                SamplingPipeline = samplingPipeline
-            };
-
-            return new ChatSession(_llm,
-                contextParams,
-                inferenceParams,
-                _systemInstructions,
-                new LLamaTransforms.KeywordTextOutputStreamTransform([_llm.Tokens.EndOfTurnToken ?? "User:", "�"], redundancyLength: 5));
-        }
-
-        private static LogLevel ConvertLLamaLogLevel(LLamaLogLevel level)
-        {
-            switch (level)
-            {
-                case LLamaLogLevel.Debug:
-                    return LogLevel.Debug;
-                case LLamaLogLevel.Info:
-                    return LogLevel.Information;
-                case LLamaLogLevel.Warning:
-                    return LogLevel.Warning;
-                case LLamaLogLevel.Error:
-                    return LogLevel.Error;
-
-                default:
-                    return LogLevel.None;
-            }
+                SystemInstructions = _systemInstructions,
+                ContextSize = (uint)_contextSize,
+                Temperature = _temperature,
+                FrequencyPenalty = _frequencyPenalty,
+                PresencePenalty = _presencePenalty
+            });
         }
     }
 }
