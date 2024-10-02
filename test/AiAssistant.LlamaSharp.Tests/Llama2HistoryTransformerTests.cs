@@ -26,7 +26,7 @@ namespace AiAssistant.LlamaSharp.Tests
                 Messages = [new Message(AuthorRole.User, $" {userPrompt} ")]
             });
 
-            const string expected = "<s>[INST] " +
+            const string expected = "[INST] " +
                                     $"{userPrompt} [/INST]";
 
             Assert.Equal(expected, template);
@@ -45,7 +45,7 @@ namespace AiAssistant.LlamaSharp.Tests
                     new Message(AuthorRole.User, $" {userPrompt} ")]
             });
 
-            const string expected = "<s>[INST] <<SYS>>\n" +
+            const string expected = "[INST] <<SYS>>\n" +
                                     $"{systemInstructions}\n" +
                                     "<</SYS>>\n" +
                                     $"{userPrompt} [/INST]";
@@ -69,7 +69,7 @@ namespace AiAssistant.LlamaSharp.Tests
                     new Message(AuthorRole.User, $" {userPrompt_2} ")]
             });
 
-            const string expected = "<s>[INST] " +
+            const string expected = "[INST] " +
                                     $"{userPrompt_1} [/INST] {assistantAnswer} </s><s>[INST] {userPrompt_2} [/INST]";
 
             Assert.Equal(expected, template);
@@ -93,7 +93,7 @@ namespace AiAssistant.LlamaSharp.Tests
                     new Message(AuthorRole.User, $" {userPrompt_2} ")]
             });
 
-            const string expected = "<s>[INST] <<SYS>>\n" +
+            const string expected = "[INST] <<SYS>>\n" +
                                     $"{systemInstructions}\n" +
                                     "<</SYS>>\n" +
                                     $"{userPrompt_1} [/INST] {assistantAnswer} </s><s>[INST] {userPrompt_2} [/INST]";
