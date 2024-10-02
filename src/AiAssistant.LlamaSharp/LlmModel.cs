@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AiAssistant.LlamaSharp.Transformers;
 using LLama;
+using LLama.Abstractions;
 using LLama.Common;
 using LLama.Native;
 using LLama.Sampling;
@@ -77,11 +79,12 @@ namespace AiAssistant.LlamaSharp
                 AntiPrompts = [_llm.Tokens.EndOfTurnToken ?? "User:"],
                 SamplingPipeline = samplingPipeline
             };
-
+                        
             return new ChatSession(_llm,
                 contextParams,
                 inferenceParams,
                 options.SystemInstructions,
+                options.CustomChatTemplate == "Llama2" ? new Llama2HistoryTransformer() : null,
                 new LLamaTransforms.KeywordTextOutputStreamTransform([_llm.Tokens.EndOfTurnToken ?? "User:", "�"], redundancyLength: 5));
         }
 

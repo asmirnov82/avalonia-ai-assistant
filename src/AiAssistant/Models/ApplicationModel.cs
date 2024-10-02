@@ -22,7 +22,8 @@ namespace AiAssistant.Models
         private readonly IApplicationLifetime? _applicationLifetime;
         private readonly ApplicationStatusLog _statusLog = new ApplicationStatusLog();
         private readonly IConfiguration _config;
-        
+        private readonly string? _customChatTemplate;
+
         private readonly LlmModel _llm;
 
         public IApplicationLifetime? ApplicationLifetime => _applicationLifetime;
@@ -142,10 +143,11 @@ namespace AiAssistant.Models
             //Read and define model params
             var modelConfig = _config.GetSection("ModelParams").Get<LlmConfig>();
                         
-            _modelPath = modelConfig!.ModelPath + modelConfig.ModelName;
+            _modelPath = modelConfig!.Path + modelConfig.FileName;
             _gpuLayerCount = modelConfig.GpuLayerCount;
             _totalLayerCount = modelConfig.TotalLayerCount;
             _contextSize = modelConfig.ContextSize;
+            _customChatTemplate = modelConfig.CustomHistoryTransformer;
 
             //Read and define inference params
             var inferenceConfig = _config.GetSection("InferenceParams").Get<InferenceConfig>();
@@ -197,7 +199,8 @@ namespace AiAssistant.Models
                 ContextSize = (uint)_contextSize,
                 Temperature = _temperature,
                 FrequencyPenalty = _frequencyPenalty,
-                PresencePenalty = _presencePenalty
+                PresencePenalty = _presencePenalty,
+                CustomChatTemplate = _customChatTemplate
             });
         }
     }

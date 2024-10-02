@@ -12,8 +12,9 @@ namespace AiAssistant.Models
     public sealed class LlmConfig
     {
         //Llm params
-        public string? ModelName { get; set; }
-        public string? ModelPath { get; set; }
+        public string? FileName { get; set; }
+        public string? Path { get; set; }
+        public string? CustomHistoryTransformer { get; set; }
         public int GpuLayerCount { get; set; }
         public int TotalLayerCount { get; set; }
         public int ContextSize { get; set; }

@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace AiAssistant.Utils
 {
+    /// <summary>
+    /// Base class for all observable objects like Models and ViewModels in MVVM.
+    /// </summary>
     public abstract class ObservableObject : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;

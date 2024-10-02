@@ -17,6 +17,11 @@ namespace AiAssistant.LlamaSharp
         public string? SystemInstructions {  get; set; }
 
         /// <summary>
+        /// Name of the custom chat template transform implementation. 
+        /// </summary>
+        public string? CustomChatTemplate { get; set; }
+
+        /// <summary>
         /// Model context size (n_ctx).
         /// </summary>
         public uint? ContextSize { get; set; }

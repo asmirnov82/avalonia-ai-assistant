@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AiAssistant.LlamaSharp.Transformers;
 using LLama;
 using LLama.Abstractions;
 using LLama.Common;
@@ -20,7 +21,7 @@ namespace AiAssistant.LlamaSharp
         private LLamaContext? _context;
         private LLama.ChatSession _session;
 
-        public ChatSession(LLamaWeights model, IContextParams contextParams, IInferenceParams inferenceParams, string? systemInstructions = null, ITextStreamTransform? transform = null)
+        internal ChatSession(LLamaWeights model, IContextParams contextParams, IInferenceParams inferenceParams, string? systemInstructions = null, IHistoryTransform? historyTransformer = null, ITextStreamTransform? outputTransformer = null)
         {
             _inferenceParams = inferenceParams;
 
@@ -29,21 +30,24 @@ namespace AiAssistant.LlamaSharp
             var executor = new InteractiveExecutor(_context);
             var chatHistory = new ChatHistory();
 
-            
+            //Add system instructions to chat history
             if (!String.IsNullOrEmpty(systemInstructions))
                 chatHistory.AddMessage(AuthorRole.System, systemInstructions);
 
-            _session = new LLama.ChatSession(executor, chatHistory);
-
-
-            // Add default template transformer, that uses llama.cpp internal chat template support for most popular models
-            // If model template is not supported by llama.cpp - custom transformer is required to format the prompt correctly
-            // see: https://github.com/ggerganov/llama.cpp/wiki/Templates-supported-by-llama_chat_apply_template
-            _session.WithHistoryTransform(new PromptTemplateTransformer(model, withAssistant: true));
-
-            if (transform != null)
+            if (historyTransformer == null)
             {
-                _session.WithOutputTransform(transform);
+                // Add default template transformer, that uses llama.cpp internal chat template support for most popular models
+                // If model template is not supported by llama.cpp - custom transformer is required to format the prompt correctly
+                // see: https://github.com/ggerganov/llama.cpp/wiki/Templates-supported-by-llama_chat_apply_template
+                historyTransformer = new PromptTemplateTransformer(model, withAssistant: true);
+            }
+
+            _session = new LLama.ChatSession(executor, chatHistory)
+                .WithHistoryTransform(historyTransformer);
+
+            if (outputTransformer != null)
+            {
+                _session.WithOutputTransform(outputTransformer);
             }
         }
 
