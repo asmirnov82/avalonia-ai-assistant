@@ -12,7 +12,8 @@
             <Button DockPanel.Dock="Right" Content="Browse" Command="{Binding BrowseModelCommand}"/>
             <TextBox Margin="5"
                      Text="{Binding ModelPath}"
-                     FontSize="11"/>
+                     Foreground="{DynamicResource LogTextBrush}"
+                     FontSize="12"/>
         </DockPanel>
         <StackPanel Margin="0,5,0,0">
             <DockPanel>
@@ -34,7 +35,8 @@
             <TextBox Margin="5"
                      IsReadOnly="True"
                      Text="{Binding ContextSize}"
-                     FontSize="11"/>
+                     Foreground="{DynamicResource LogTextBrush}"
+                     FontSize="12"/>
         </StackPanel>
      </StackPanel>
 </UserControl>

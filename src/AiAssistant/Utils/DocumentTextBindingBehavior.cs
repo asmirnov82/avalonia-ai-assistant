@@ -43,7 +43,7 @@ namespace AiAssistant.Utils
             if (AssociatedObject != null)
             {
                 _textEditor = AssociatedObject;
-                _textEditor.TextChanged += TextChanged;
+                _textEditor.TextChanged += TextChanged!;
                 this.GetObservable(TextProperty).Subscribe(this);
             }
         }
@@ -54,7 +54,7 @@ namespace AiAssistant.Utils
 
             if (_textEditor != null)
             {
-                _textEditor.TextChanged -= TextChanged;
+                _textEditor.TextChanged -= TextChanged!;
             }
         }
 

@@ -10,6 +10,7 @@
             <SolidColorBrush x:Key='BorderBrush'>#F0163761</SolidColorBrush>
             <SolidColorBrush x:Key='MessageBackgroundBrush'>#FF1F1F1F</SolidColorBrush>
             <SolidColorBrush x:Key='AvatarBrush'>#FFC3602D</SolidColorBrush>
+            <SolidColorBrush x:Key='SettingsTextBrush'>#FFC3602D</SolidColorBrush>
             <SolidColorBrush x:Key='LogTextBrush'>#FFC3602D</SolidColorBrush>
             <SolidColorBrush x:Key='TabCloseIconBrush'>#FFC3602D</SolidColorBrush>
         </ResourceDictionary>
@@ -22,6 +23,7 @@
             <SolidColorBrush x:Key='BorderBrush'>#F036B9E7</SolidColorBrush>
             <SolidColorBrush x:Key='MessageBackgroundBrush'>#FFF3F3F3</SolidColorBrush>
             <SolidColorBrush x:Key='AvatarBrush'>#FFC3602D</SolidColorBrush>
+            <SolidColorBrush x:Key='SettingsTextBrush'>#FFC3602D</SolidColorBrush>
             <SolidColorBrush x:Key='LogTextBrush'>#FFC3602D</SolidColorBrush>
             <SolidColorBrush x:Key='TabCloseIconBrush'>#FFC3602D</SolidColorBrush>
         </ResourceDictionary>

@@ -10,7 +10,9 @@
         <Label>System Instructions</Label>
         <TextBox Margin="5"
                  TextWrapping="Wrap"
-                 Text="{Binding SystemInstructions}"/>
+                 Text="{Binding SystemInstructions}"
+                 Foreground="{DynamicResource LogTextBrush}"
+                 FontSize="12"/>
         <DockPanel>
             <Label>Temperature</Label>
             <TextBlock Margin="0,0,5,0"

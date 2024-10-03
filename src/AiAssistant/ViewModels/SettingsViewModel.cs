@@ -74,7 +74,7 @@ namespace AiAssistant.ViewModels
             var storageProvider = desktop.MainWindow?.StorageProvider;
 
             // Start async operation to open the dialog.
-            var files = await storageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+            var files = await storageProvider!.OpenFilePickerAsync(new FilePickerOpenOptions
             {
                 Title = "Select Model",
                 AllowMultiple = false,

@@ -32,7 +32,7 @@ namespace AiAssistant.Utils
             if (AssociatedObject != null)
             {
                 _scrollViewer = AssociatedObject;
-                _scrollViewer.ScrollChanged += ScrollViewer_ScrollChanged;
+                _scrollViewer.ScrollChanged += ScrollViewer_ScrollChanged!;
             }
         }
 
@@ -42,7 +42,7 @@ namespace AiAssistant.Utils
 
             if (_scrollViewer != null)
             {
-                _scrollViewer.ScrollChanged -= ScrollViewer_ScrollChanged;
+                _scrollViewer.ScrollChanged -= ScrollViewer_ScrollChanged!;
             }
         }
 
@@ -51,9 +51,7 @@ namespace AiAssistant.Utils
             // Only scroll to bottom when the extent changed. Otherwise you can't scroll up
             if (AutoScroll && e.ExtentDelta.Y != 0)
             {
-                
                 _scrollViewer?.ScrollToEnd();
-
             }
         }
     }
