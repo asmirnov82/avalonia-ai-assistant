@@ -32,6 +32,11 @@ Download any LLM model in GGUF format. For example:
 |Phi 3 mini Inst|https://huggingface.co/microsoft/Phi-3-mini-4k-instruct-gguf|
 |Phi 3 medium Inst|https://huggingface.co/QuantFactory/Phi-3-medium-4k-instruct-GGUF|
 
+#### Mistral family
+|Model|Link|
+|-|-|
+|Codestral 22B|https://huggingface.co/bartowski/Codestral-22B-v0.1-GGUF|
+
 ### Step 3 - Setup config
 Change `appsettings.json` file to have default setting for the path to the downloaded model. Also setup correct values for the modal max context size and other parameters.
 For example for LLama 2 it can be:
@@ -45,7 +50,7 @@ For example for LLama 2 it can be:
     "CustomHistoryTransformer": "Llama2"
 }
 ```
-Note: do not forget to add `"CustomHistoryTransformer": "Llama2"` attribute for any LLama 2 family model (remove it for different types of models).
+Note: do not forget to add `"CustomHistoryTransformer": "Llama2"` attribute for any LLama 2 or Mistral family model (remove it for different types of models).
 
 ### Step 4 - Run application
 
