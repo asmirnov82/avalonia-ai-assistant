@@ -7,7 +7,8 @@ using System.Windows.Input;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Platform.Storage;
 using AiAssistant.Models;
-using AiAssistant.Utils;
+using AiAssistant.Common;
+using AiAssistant.Commands;
 
 namespace AiAssistant.ViewModels
 {
@@ -16,7 +17,8 @@ namespace AiAssistant.ViewModels
     /// </summary>
     public sealed class SettingsViewModel : ObservableObject
     {
-        private readonly ApplicationModel _applicationModel;
+        private readonly IApplicationModel _applicationModel;
+        private readonly IStorageProvider _storageProvider;
 
         #region Public properties
         public ICommand BrowseModelCommand { get; }
@@ -50,12 +52,15 @@ namespace AiAssistant.ViewModels
         }
         #endregion
 
-        public SettingsViewModel(ApplicationModel applicationModel)
+        public SettingsViewModel(IApplicationModel applicationModel, IStorageProvider storageProvider)
         {
             _applicationModel = applicationModel;
+            _storageProvider = storageProvider;
+
             _applicationModel.PropertyChanged += OnApplicationModelPropertyChanged;
 
             BrowseModelCommand = new AsyncRelayCommand(BrowseForModelAsync);
+            _storageProvider = storageProvider;
         }
 
         private void OnApplicationModelPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -67,14 +72,9 @@ namespace AiAssistant.ViewModels
         }
 
         private async Task BrowseForModelAsync()
-        {            
-            if (!(_applicationModel.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop))
-                return;
-
-            var storageProvider = desktop.MainWindow?.StorageProvider;
-
+        {
             // Start async operation to open the dialog.
-            var files = await storageProvider!.OpenFilePickerAsync(new FilePickerOpenOptions
+            var files = await _storageProvider!.OpenFilePickerAsync(new FilePickerOpenOptions
             {
                 Title = "Select Model",
                 AllowMultiple = false,

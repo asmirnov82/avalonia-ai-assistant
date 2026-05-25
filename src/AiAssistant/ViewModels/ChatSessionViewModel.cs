@@ -5,8 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using AiAssistant.Commands;
 using AiAssistant.LlamaSharp;
-using AiAssistant.Utils;
+using AiAssistant.Common;
 
 namespace AiAssistant.ViewModels
 {

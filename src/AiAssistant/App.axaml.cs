@@ -1,17 +1,17 @@
-using Avalonia;
-using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Markup.Xaml;
 using AiAssistant.Models;
 using AiAssistant.ViewModels;
 using AiAssistant.Views;
+using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Markup.Xaml;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
 
 namespace AiAssistant
 {
     public partial class App : Application
     {
-        private MainWindowViewModel? _mainViewModel;
-        private ApplicationModel? _applicationModel;
-                
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
@@ -19,22 +19,32 @@ namespace AiAssistant
 
         public override void OnFrameworkInitializationCompleted()
         {
-            _applicationModel = new ApplicationModel(ApplicationLifetime);
+            var services = new ServiceCollection();
 
-            //Create main window view model over application model
-            _mainViewModel = new MainWindowViewModel(_applicationModel);
+            // Register NLogger
+            services.AddLogging(loggingBuilder =>
+            {
+                loggingBuilder.ClearProviders();
+                loggingBuilder.AddNLog();
+            });
+
+            services.AddApplicationServices();
+            services.AddViewModels();
+            services.AddAppSettings("appsettings.json");
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = new MainWindow
-                {
-                    DataContext = _mainViewModel
-                };
+                var mainWindow = new MainWindow();
+                services.AddSingleton(mainWindow.StorageProvider);
+
+                var serviceProvider = services.BuildServiceProvider();
+                var vm = serviceProvider.GetRequiredService<MainWindowViewModel>();
+
+                mainWindow.DataContext = vm;
+                desktop.MainWindow = mainWindow;
             }
 
             base.OnFrameworkInitializationCompleted();
-
-            _applicationModel.StatusLog.Log(Microsoft.Extensions.Logging.LogLevel.Information, "Application successfully started");
         }
     }
 }

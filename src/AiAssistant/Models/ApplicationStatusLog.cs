@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AiAssistant.Utils;
+using AiAssistant.Common;
 using Microsoft.Extensions.Logging;
 
 namespace AiAssistant.Models

@@ -6,8 +6,8 @@
              xmlns:views="clr-namespace:AiAssistant.Views"
              xmlns:vm="clr-namespace:AiAssistant.ViewModels"
              xmlns:AvaloniaEdit="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
-             xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
-             xmlns:utils="clr-namespace:AiAssistant.Utils"
+             xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Xaml.Behaviors.Interactivity"
+             xmlns:behaviors="clr-namespace:AiAssistant.Behaviors"
              x:Class="AiAssistant.Views.ChatSession"
              x:DataType="vm:ChatSessionViewModel">
     <UserControl.DataTemplates>
@@ -28,7 +28,7 @@
                 Margin="2">
             <ScrollViewer>
                 <i:Interaction.Behaviors>
-                    <utils:AutoScrollBehavior AutoScroll="True"/>
+                    <behaviors:AutoScrollBehavior AutoScroll="True"/>
                 </i:Interaction.Behaviors>
                 <ItemsControl ItemsSource="{Binding Messages}"/>
             </ScrollViewer>
@@ -62,7 +62,7 @@
                     <AvaloniaEdit:TextEditor Margin="2"
                             IsEnabled="{Binding !IsGeneratingResponse}">
                         <i:Interaction.Behaviors>
-                            <utils:DocumentTextBindingBehavior Text="{Binding UserRequest, Mode=TwoWay}"/>
+                            <behaviors:DocumentTextBindingBehavior Text="{Binding UserRequest, Mode=TwoWay}"/>
                         </i:Interaction.Behaviors>
                     </AvaloniaEdit:TextEditor>
                 </Border>

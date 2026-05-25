@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AiAssistant.Models;
-using AiAssistant.Utils;
+using AiAssistant.Common;
 
 namespace AiAssistant.ViewModels
 {
@@ -13,7 +13,7 @@ namespace AiAssistant.ViewModels
     /// </summary>
     public sealed class OptionsViewModel : ObservableObject
     {
-        private readonly ApplicationModel _applicationModel;
+        private readonly IApplicationModel _applicationModel;
 
         #region Public properties
         public string? SystemInstructions
@@ -53,7 +53,7 @@ namespace AiAssistant.ViewModels
         }
         #endregion
 
-        public OptionsViewModel(ApplicationModel applicationModel)
+        public OptionsViewModel(IApplicationModel applicationModel)
         {
             _applicationModel = applicationModel;
             _applicationModel.PropertyChanged += OnApplicationModelPropertyChanged;

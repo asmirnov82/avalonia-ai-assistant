@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using AiAssistant.Commands;
 using AiAssistant.Models;
-using AiAssistant.Utils;
+using AiAssistant.Common;
 
 namespace AiAssistant.ViewModels
 {
@@ -14,7 +15,7 @@ namespace AiAssistant.ViewModels
     /// </summary>
     public sealed class ChatSessionsViewModel : ObservableObject
     {
-        private readonly ApplicationModel _applicationModel;
+        private readonly IApplicationModel _applicationModel;
         private readonly ObservableCollection<ChatSessionViewModel> _chatSessions;
                 
         #region Public properties
@@ -64,7 +65,7 @@ namespace AiAssistant.ViewModels
         public bool IsNewChatButtonEnabled => true;
         #endregion
 
-        public ChatSessionsViewModel(ApplicationModel model)
+        public ChatSessionsViewModel(IApplicationModel model)
         {
             _applicationModel = model;
             _chatSessions = new ObservableCollection<ChatSessionViewModel>();
@@ -78,7 +79,7 @@ namespace AiAssistant.ViewModels
             {
                 IsModelLoading = true;
 
-                await _applicationModel.LoadModel(new Progress<float>(x => ModelLoadingProgress = (int)(x * 100)));
+                await _applicationModel.LoadModelAsync(new Progress<float>(x => ModelLoadingProgress = (int)(x * 100)));
 
                 IsModelLoading = false;
             }

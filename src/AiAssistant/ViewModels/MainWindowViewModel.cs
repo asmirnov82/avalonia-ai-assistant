@@ -1,13 +1,16 @@
-﻿using Avalonia;
-using Avalonia.Styling;
-using AiAssistant.Models;
-using AiAssistant.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using AiAssistant.Commands;
+using AiAssistant.Models;
+using AiAssistant.Common;
+using Avalonia;
+using Avalonia.Styling;
+using Microsoft.Extensions.Logging;
+using Avalonia.Platform.Storage;
 
 namespace AiAssistant.ViewModels
 {
@@ -16,7 +19,8 @@ namespace AiAssistant.ViewModels
     /// </summary>
     public sealed class MainWindowViewModel : ObservableObject
     {
-        private readonly ApplicationModel _applicationModel;
+        private readonly ILogger? _logger;
+        private readonly IApplicationModel _applicationModel;
 
         private readonly ChatSessionsViewModel _chatSessionsViewModel;
         private readonly OptionsViewModel _optionsViewModel;
@@ -103,14 +107,15 @@ namespace AiAssistant.ViewModels
         }
         #endregion
 
-        public MainWindowViewModel(ApplicationModel model)
+        public MainWindowViewModel(IApplicationModel model, IStorageProvider storageProvider, ILogger<MainWindowViewModel> logger)
         {
+            _logger = logger;
             _applicationModel = model;
             _applicationModel.PropertyChanged += OnApplicationModelPropertyChanged;
 
             _chatSessionsViewModel = new ChatSessionsViewModel(_applicationModel);
             _optionsViewModel = new OptionsViewModel(_applicationModel);
-            _settingsViewModel = new SettingsViewModel(_applicationModel);
+            _settingsViewModel = new SettingsViewModel(_applicationModel, storageProvider);
             _logsViewModel = new LogsViewModel(_applicationModel.StatusLog);
 
             _activeView = _chatSessionsViewModel;

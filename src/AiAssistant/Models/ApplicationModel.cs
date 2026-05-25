@@ -8,25 +8,22 @@ using System.Threading.Tasks;
 using Avalonia.Controls.ApplicationLifetimes;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using AiAssistant.Utils;
 using AiAssistance.Models;
 using AiAssistant.LlamaSharp;
+using AiAssistant.Common;
 
 namespace AiAssistant.Models
 {
     /// <summary>
     /// Application model that contains main app business logic.
     /// </summary>
-    public sealed class ApplicationModel : ObservableObject
+    public sealed class ApplicationModel : ObservableObject, IApplicationModel
     {
-        private readonly IApplicationLifetime? _applicationLifetime;
         private readonly ApplicationStatusLog _statusLog = new ApplicationStatusLog();
-        private readonly IConfiguration _config;
         private readonly string? _customChatTemplate;
 
         private readonly LlmModel _llm;
-
-        public IApplicationLifetime? ApplicationLifetime => _applicationLifetime;
+                
         public ApplicationStatusLog StatusLog => _statusLog;
         public ChatSession? ChatSession;
 
@@ -121,10 +118,8 @@ namespace AiAssistant.Models
         }
         #endregion
 
-        public ApplicationModel(IApplicationLifetime? applicationLifetime)
+        public ApplicationModel(LlmConfig llmConfig, InferenceConfig inferenceConfig)
         {
-            _applicationLifetime = applicationLifetime;
-
             //Configure llama.cpp native lib                      
             try
             {
@@ -134,24 +129,13 @@ namespace AiAssistant.Models
             {
                 _statusLog.Log(LogLevel.Error, ex.Message);
             }
-
-            //Read app config from appsettings.json file
-            _config = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .Build();
-
-            //Read and define model params
-            var modelConfig = _config.GetSection("ModelParams").Get<LlmConfig>();
                         
-            _modelPath = modelConfig!.Path + modelConfig.FileName;
-            _gpuLayerCount = modelConfig.GpuLayerCount;
-            _totalLayerCount = modelConfig.TotalLayerCount;
-            _contextSize = modelConfig.ContextSize;
-            _customChatTemplate = modelConfig.CustomHistoryTransformer;
-
-            //Read and define inference params
-            var inferenceConfig = _config.GetSection("InferenceParams").Get<InferenceConfig>();
-
+            _modelPath = llmConfig!.Path + llmConfig.FileName;
+            _gpuLayerCount = llmConfig.GpuLayerCount;
+            _totalLayerCount = llmConfig.TotalLayerCount;
+            _contextSize = llmConfig.ContextSize;
+            _customChatTemplate = llmConfig.CustomHistoryTransformer;
+                        
             _systemInstructions = inferenceConfig!.SystemInstructions;
             _temperature = inferenceConfig.Temperature;
             _presencePenalty = inferenceConfig.PresencePenalty;
@@ -160,7 +144,7 @@ namespace AiAssistant.Models
             _llm = new LlmModel();
         }
 
-        public async Task<bool> LoadModel(IProgress<float>? progressReporter = null)
+        public async Task<bool> LoadModelAsync(IProgress<float>? progressReporter = null)
         {
             if (_isModelLoaded)
             {
