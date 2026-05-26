@@ -41,7 +41,6 @@ namespace AiAssistant.LlamaSharp
 
             var modelParams = new ModelParams(path)
             {
-                Seed = 1337,
                 GpuLayerCount = gpuLayerCount
             };
 
@@ -63,29 +62,30 @@ namespace AiAssistant.LlamaSharp
             //Define context  and inference params
             var contextParams = new ModelParams("")
             {
-                ContextSize = options.ContextSize
+                ContextSize = options.ContextSize,
+    
             };
 
             var samplingPipeline = new DefaultSamplingPipeline()
             {
                 Temperature = options.Temperature,
-                AlphaPresence = options.PresencePenalty,
-                AlphaFrequency = options.FrequencyPenalty
+                PresencePenalty = options.PresencePenalty,
+                FrequencyPenalty = options.FrequencyPenalty
             };
             
             //Define inference params
             var inferenceParams = new InferenceParams()
             {
-                AntiPrompts = [_llm.Tokens.EndOfTurnToken ?? "User:"],
+                AntiPrompts = ["User:", "Assistant:", "System:"],
                 SamplingPipeline = samplingPipeline
             };
-                        
+
             return new ChatSession(_llm,
                 contextParams,
                 inferenceParams,
                 options.SystemInstructions,
                 options.CustomChatTemplate == "Llama2" ? new Llama2HistoryTransformer() : null,
-                new LLamaTransforms.KeywordTextOutputStreamTransform([_llm.Tokens.EndOfTurnToken ?? "User:", "�"], redundancyLength: 5));
+                new LLamaTransforms.KeywordTextOutputStreamTransform(["User:", "Assistant:", "System:", "�"], redundancyLength: 5));
         }
 
         private static LogLevel ConvertLLamaLogLevel(LLamaLogLevel level)
